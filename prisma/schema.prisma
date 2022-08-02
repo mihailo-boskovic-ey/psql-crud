@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model pratice_cars {
+  id        String  @id @db.VarChar(50)
+  make      String? @db.VarChar(255)
+  model     String? @db.VarChar(255)
+  driver pratice_users? @relation(fields: [driver_id],references: [id])
+  driver_id String?  @db.VarChar(50)
+}
+
+model pratice_users {
+  id        String  @id @db.VarChar(50)
+  firstname String? @db.VarChar(255)
+  lastname  String? @db.VarChar(255)
+  cars pratice_cars[]
+}
